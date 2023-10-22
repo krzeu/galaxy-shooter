@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    //public or private, public innebär att omvärlden kan kommunicera med den variablen, private gör att bara objectet med scriptet kommer åt de
-    // datatyp (int = hel tal, float= decimaltal, bool= sant eller falskt, string=text)
-    // varje variabel har ett namn
-    // optional value
+   
     [SerializeField]
     public float speed = 0.0f;
+    [SerializeField]
+    private GameObject _laserPrefab;
+    [SerializeField]
+    private Vector3 _laserOffset = new Vector3 (0 , 1.5f, 0);
     void Start()
     {
         // New Position
-        transform.position = new Vector3(0, 0, 0);
+        transform.position = new Vector3(0, -2.55f, 0);
 
 
         
@@ -23,8 +24,16 @@ public class Player : MonoBehaviour
     void Update()
     {
       CalcuateMovement();
-        
+        //space press, spawn gameobject, fire laser
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Instantiate(_laserPrefab,transform.position + _laserOffset, Quaternion.identity);
+        }
+
+
     }
+        
 
     void CalcuateMovement()
     {
@@ -36,26 +45,23 @@ public class Player : MonoBehaviour
         // om spelaren postion är större än 0
         // y-postion = 0
 
-        if (transform.position.y >= 0)
-        {
-            transform.position = new Vector3(transform.position.x, 0, 0);
-        }
-        else if (transform.position.y <= -2.55)
-        {
-            transform.position = new Vector3(transform.position.x, -2.55f, 0);
-        }
-
-
-
-        if (transform.position.x >= 9.3f)
+        transform.position = new Vector3(transform.position.x, Mathf.Clamp(transform.position.y, -2.55f, 0), 0);
+       
+        if (transform.position.x > 11f)
         {
 
-            transform.position = new Vector3(9.3f, transform.position.y, 0);
+            transform.position = new Vector3(-11f, transform.position.y, 0);
 
         }
-        else if (transform.position.x <= -9.3f)
+        else if (transform.position.x < -11f)
         {
-            transform.position = new Vector3(-9.3f, transform.position.y, 0);
+            transform.position = new Vector3(11f, transform.position.y, 0);
         }
     }
+
+
+
+
 }
+
+
