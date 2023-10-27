@@ -14,6 +14,10 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _fireRate = 0.5f;
     private float _nextFire = 0.05f;
+    [SerializeField]
+    private int _lives = 3;
+
+
     void Start()
     {
         // New Position
@@ -71,7 +75,18 @@ public class Player : MonoBehaviour
         
         
         
+    public void Damage()
+    {
+        _lives -= 1; 
 
+        // om död
+        //destroy
+
+        if (_lives < 1) 
+        {
+            Destroy(this.gameObject);
+        }
+    }
 
 
 
