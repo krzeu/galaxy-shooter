@@ -79,9 +79,6 @@ public class Player : MonoBehaviour
     {
         _lives -= 1; 
 
-        // om död
-        //destroy
-
         if (_lives < 1) 
         {
             Destroy(this.gameObject);

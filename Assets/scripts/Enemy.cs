@@ -29,12 +29,18 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+            //other.transform.GetComponent<Player>().Damage();   // får tillgång till player scriptet  
         // if other is player
         // dmg player
         // Destroy us
         if( other.tag == "Player")
         {
             //dmg player
+            Player player = other.transform.GetComponent<Player>();
+            if (player != null)
+            {
+                player.Damage();
+            }
             Destroy(this.gameObject);
         }
 
