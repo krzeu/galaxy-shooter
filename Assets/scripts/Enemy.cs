@@ -27,7 +27,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter2D(Collider2D other)
     {
             //other.transform.GetComponent<Player>().Damage();   // får tillgång till player scriptet  
         // if other is player
