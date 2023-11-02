@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _laserPrefab;
     [SerializeField]
+    private GameObject _TrippleshotPrefab;
+    [SerializeField]
     private Vector3 _laserOffset = new Vector3 (0 , 1.5f, 0);
     [SerializeField]
     private float _fireRate = 0.5f;
@@ -17,12 +19,16 @@ public class Player : MonoBehaviour
     [SerializeField]
     private int _lives = 3;
     private SpawnManager _spawnManager;
+    [SerializeField]
+    private bool _isTripleAwake = false;
+
 
 
     void Start()
     {
         // New Position
         transform.position = new Vector3(0, -2.55f, 0);
+       
         _spawnManager = GameObject.Find("Spawn_Manager").GetComponent<SpawnManager>();
 
         if (_spawnManager == null)
@@ -75,12 +81,39 @@ public class Player : MonoBehaviour
 
     void _FireLaser()
     {
+        
+        if(_isTripleAwake == true)
+        {
+            Instantiate(_TrippleshotPrefab, transform.position , Quaternion.identity);
+        }
+        else 
+        { 
         Instantiate(_laserPrefab, transform.position + _laserOffset, Quaternion.identity);
         _nextFire = Time.time + _fireRate;
+        }
+        
+
+       
+        // if space key press
+        // if tripleshotActive is true
+        // fire 3 laser
+        //else fire 1 laser 
+
+        // instantiate 3 laser tripple shot
+
     }
-        
-        
-        
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if( other.tag == "Powerup_Triple")
+        {
+            Destroy(this.gameObject);
+            Debug.Log("hello");
+        }
+    }
+
+
+
     public void Damage()
     {
         _lives -= 1; 
