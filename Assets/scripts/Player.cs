@@ -22,6 +22,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private bool _isTripleAwake = false;
 
+    
 
 
     void Start()
@@ -84,7 +85,7 @@ public class Player : MonoBehaviour
         
         if(_isTripleAwake == true)
         {
-            Instantiate(_TrippleshotPrefab, transform.position , Quaternion.identity);
+            Instantiate(_TrippleshotPrefab, transform.position + _laserOffset, Quaternion.identity);
         }
         else 
         { 
@@ -125,7 +126,19 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void TripleShotAvtive()
+    {
+        _isTripleAwake = true;
+        StartCoroutine(Power_up());
+      
+    }
 
+    IEnumerator Power_up()
+    {
+      yield return new WaitForSeconds(5f);
+        _isTripleAwake = false;
+    }
+    
 
 }
 

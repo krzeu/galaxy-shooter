@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-            //other.transform.GetComponent<Player>().Damage();   // får tillgång till player scriptet  
+        //other.transform.GetComponent<Player>().Damage();   // får tillgång till player scriptet  
         // if other is player
         // dmg player
         // Destroy us

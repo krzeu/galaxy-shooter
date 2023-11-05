@@ -5,10 +5,8 @@ using UnityEngine;
 public class Powerup_Tripple_Shot : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _TripleShot;
-    [SerializeField]
-    private GameObject _QuadShot;
-    private bool _Triple_Active;
+    public float _Fall_Speed = 3f;
+   
     // Start is called before the first frame update
     void Start()
     {
@@ -18,26 +16,28 @@ public class Powerup_Tripple_Shot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        transform.Translate(Vector3.down * _Fall_Speed * Time.deltaTime);
+
+        if (transform.position.y < -4.87)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-       
-        if (other.tag == "Player")
+        if(other.tag == "Player")
         {
-
-            TripplePower();
-
+            Player player = other.transform.GetComponent<Player>();
+            if(player != null)
+            {
+                player.TripleShotAvtive();
+            }
+            Destroy(this.gameObject);
+            
         }
-    }
-               
-     private void TripplePower()
-    {
-        Instantiate(_QuadShot, transform.position, Quaternion.identity);
         
-        Destroy(this.gameObject);
-
     }
 
+   
 }
